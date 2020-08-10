@@ -31,29 +31,38 @@ const handleBlogRouter = (req, res) => {
 
     // 新建
     if (method === 'POST' && req.path === '/api/blog/new') {
-        const data = newBlog(req.body);
-        return new SuccessModel(data);
+        req.body.author = 'wangwu'; // 假数据,待开发登录
+        const result = newBlog(req.body);
+        return result.then(data => {
+            return new SuccessModel(data);
+        })
+        
     }
 
     // 更新
     if (method === 'POST' && req.path === '/api/blog/update') {
-        const data = updateBlog(id, req.body);
-        if (data) {
-            return new SuccessModel(data);
-        } else {
-            return new ErrorModel('更新失败');
-        }
+        const author = 'zhangsan'; // 假数据,待开发登录
+        const result = updateBlog(id, req.body, author);
+        return result.then(data => {
+            if (data) {
+                return new SuccessModel(data);
+            } else {
+                return new ErrorModel('更新失败');
+            }
+        })
     }
 
     // 删除
     if (method === 'POST' && req.path === '/api/blog/delete') {
-        const data = delBlog(id);
-        if (data) {
-            return new SuccessModel(data);
-        } else {
-            return new ErrorModel('删除失败')
-        }
-        
+        const author = 'zhangsan'; // 假数据,待开发登录
+        const result = delBlog(id, author);
+        return result.then(data => {
+            if (data) {
+                return new SuccessModel(data);
+            } else {
+                return new ErrorModel('删除失败')
+            }
+        })
     }
 }
 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        <h2>页面</h2>
+        <button id="btn">列表</button>
+        <button id="btn1">新建</button>
+        <button id="btn2">登录</button>
+        <button id="btn3">详情</button>
+        <button id="btn4">删除</button>
+        <button id="btn5">更新</button>
+    </div>
+    <script>
+        var btn = document.getElementById('btn');
+        $('#btn').click(function() {
+            $.get('/api/blog/list', function() {
+                console.log(123);
+            })
+        })
+        $('#btn1').click(function() {
+            $.post('/api/blog/new', {title: '标题1', content: '内容1'}, function() {
+                console.log(123);
+            })
+        })
+        $('#btn2').click(function() {
+            $.ajax({ url: '/api/user/login', data: JSON.stringify({username: 'zhangsan', password: '123'}), type: 'post', contentType: 'application/json' })
+            .then(res => {
+                cosnole.log(res);
+            })
+        })
+        $('#btn3').click(function() {
+            $.ajax({ url: '/api/blog/detail?id=1', type: 'get' })
+            .then(res => {
+                cosnole.log(res);
+            })
+        })
+        $('#btn4').click(function() {
+            $.ajax({ url: '/api/blog/delete?id=2', type: 'post' })
+            .then(res => {
+                cosnole.log(res);
+            })
+        })
+        $('#btn5').click(function() {
+            $.ajax({ url: '/api/blog/update?id=1', data: JSON.stringify({ title: '我是更新的标题111', content: '我是更新的标题·111'}), type: 'post', contentType: 'application/json' })
+            .then(res => {
+                cosnole.log(res);
+            })
+        })
+    </script>
+</body>
+</html>

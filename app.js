@@ -2,6 +2,7 @@ const querystring = require('querystring');
 const handleBlogRouter = require('./src/router/blog');
 const handleUserRouter = require('./src/router/user');
 const { set, get } = require('./src/db/redis');
+const { access } = require('./src/utils/log');
 
 const getPostData = req => {
   const promise = new Promise((resolve, reject) => {
@@ -84,6 +85,7 @@ const serverHandle = (req, res) => {
           res.setHeader('Set-Cookie', `userid=${userId}; path=/; httpOnly; expires=${getCookieExpires()}`);
         }
         res.end(JSON.stringify(blogData));
+        access(req, JSON.stringify(blogData));
       });
       return;
     }
@@ -96,6 +98,7 @@ const serverHandle = (req, res) => {
           res.setHeader('Set-Cookie', `userid=${userId}; path=/; httpOnly; expires=${getCookieExpires()}`);
         }
         res.end(JSON.stringify(userData))
+        access(req, JSON.stringify(userData));
       })
       return;
     }

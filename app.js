@@ -53,7 +53,7 @@ const parseCookie = req => {
 
 const serverHandle = (req, res) => {
   res.setHeader('content-type', 'application/json');
-
+  res.setHeader('Access-Control-Allow-Origin', '*');
   const url = req.url;
   req.path = url.split('?')[0];
   req.query = querystring.parse(url.split('?')[1]);

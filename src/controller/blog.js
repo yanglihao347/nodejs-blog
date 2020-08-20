@@ -8,6 +8,7 @@ const getList = (author, keyword) => {
         sql += `and author=${author} `;
     }
     if (keyword) {
+        keyword = `%${keyword}%`;
         keyword = escape(keyword);
         sql += `and title like %${keyword}% `;
     }
